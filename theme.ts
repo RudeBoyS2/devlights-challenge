@@ -6,12 +6,15 @@ const theme = extendTheme({
       "html, body, #root, main": {
         height: "100%",
         width: "100%",
-        bg: "#f1f2f3",
+        bg: "#181818",
       },
     },
   },
   colors: {
-    
+    primary: "#181818",
+    secondary: "#f25a25",
+    font: "#fff",
+    footer: "#1A1A1A"
   },
 });
 
