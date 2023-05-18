@@ -19,7 +19,6 @@ const CardsContainer = () => {
     handleSortByPriceDesc,
     handleLoadMore,
   } = useDeals();
-  console.log(filteredDeals);
 
   return (
     <>
