@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { debounce } from "lodash";
 import { calculateDiscountPercentage } from "../utils/utils";
 import type { Deal } from "../types/types";
-import { Preahvihear } from "next/font/google";
 
 // Custom hook to fetch and filter deals
 export const useDeals = () => {
@@ -21,8 +20,7 @@ export const useDeals = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    const filtered = deals
-    .filter((deal) => {
+    const filtered = deals.filter((deal) => {
       const lowerCaseTitle = deal.title.toLowerCase();
       const lowerCaseSearchQuery = searchQuery.toLowerCase();
       const is85PercentOff = calculateDiscountPercentage(deal) >= 85;
@@ -31,13 +29,17 @@ export const useDeals = () => {
         lowerCaseTitle.includes(lowerCaseSearchQuery) &&
         (!show85PercentOff || is85PercentOff)
       );
-    })
-    
+    });
+
     let sortedDeals = filtered;
     if (sortOrder === "ascendant") {
-      sortedDeals = filtered.slice().sort((a, b) => parseFloat(a.salePrice) - parseFloat(b.salePrice));
+      sortedDeals = filtered
+        .slice()
+        .sort((a, b) => parseFloat(a.salePrice) - parseFloat(b.salePrice));
     } else if (sortOrder === "descendant") {
-      sortedDeals = filtered.slice().sort((a, b) => parseFloat(b.salePrice) - parseFloat(a.salePrice));
+      sortedDeals = filtered
+        .slice()
+        .sort((a, b) => parseFloat(b.salePrice) - parseFloat(a.salePrice));
     }
 
     setFilteredDeals(sortedDeals);
@@ -64,11 +66,15 @@ export const useDeals = () => {
   };
 
   const handleSortByPriceAsc = () => {
-    setSortOrder(prev => prev === "" || prev === "descendant" ? "ascendant" : "");
+    setSortOrder((prev) =>
+      prev === "" || prev === "descendant" ? "ascendant" : ""
+    );
   };
 
   const handleSortByPriceDesc = () => {
-    setSortOrder(prev => prev === "" || prev === "ascendant" ? "descendant" : "");
+    setSortOrder((prev) =>
+      prev === "" || prev === "ascendant" ? "descendant" : ""
+    );
   };
 
   return {
@@ -78,6 +84,6 @@ export const useDeals = () => {
     handleToggle85PercentOff,
     handleSortByPriceAsc,
     handleSortByPriceDesc,
-    sortOrder
+    sortOrder,
   };
 };
