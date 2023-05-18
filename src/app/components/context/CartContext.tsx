@@ -22,6 +22,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const toast = useToast();
   const [cartItems, setCartItems] = useState<Deal[]>([]);
 
+  // Función para agregar un deal al carrito, con un máximo de 5 deals, y sin permitir duplicados.
   const addToCart = (deal: Deal) => {
     if (cartItems.find((item) => item.dealID === deal.dealID)) {
       return toast({
@@ -54,6 +55,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  // Función para remover un deal del carrito.
   const removeFromCart = (deal: Deal) => {
     setCartItems((prevItems) => {
       toast({
