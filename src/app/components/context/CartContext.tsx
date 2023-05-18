@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import React, { createContext, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useToast } from "@chakra-ui/react";
 import { Deal } from "../../types/types";
 
 interface CartContextType {
@@ -19,28 +19,55 @@ export const CartContext = createContext<CartContextType>({
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const toast = useToast();
   const [cartItems, setCartItems] = useState<Deal[]>([]);
 
+  // Función para agregar un deal al carrito, con un máximo de 5 deals, y sin permitir duplicados.
   const addToCart = (deal: Deal) => {
-    if(cartItems.find((item) => item.dealID === deal.dealID)) {
-      toast.error("Deal already in cart!");
-      return;
+    if (cartItems.find((item) => item.dealID === deal.dealID)) {
+      return toast({
+        title: "Deal already in cart!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
     }
 
-    if (cartItems.length >= 5) return toast.error("Cart is full!");
+    if (cartItems.length >= 5)
+      return toast({
+        title: "Cart is full!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
 
     setCartItems((prevItems) => {
-     toast.success("Deal added to cart!");
-     return [...prevItems, deal]
+      toast({
+        title: "Deal added to cart!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      return [...prevItems, deal];
     });
   };
 
+  // Función para remover un deal del carrito.
   const removeFromCart = (deal: Deal) => {
     setCartItems((prevItems) => {
-      toast.success("Deal removed from cart!");
+      toast({
+        title: "Deal removed from cart!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
       return prevItems.filter((item) => item.dealID !== deal.dealID);
     });
-  }
+  };
 
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>

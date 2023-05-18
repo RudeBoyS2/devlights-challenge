@@ -48,7 +48,7 @@ const DealCard: React.FC<DealCardProps> = ({ deal }) => {
           zIndex={100}
           fontSize="12px"
         >
-          {calculateDiscountPercentage(deal)}%
+          {calculateDiscountPercentage(deal)}% off
         </Box>
         <ChakraNextImage
           src={deal.thumb || "/images/navbarlogo.png"}

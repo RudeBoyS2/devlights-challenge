@@ -23,6 +23,7 @@ export const useDeals = () => {
   }, [searchQuery]);
 
   useEffect(() => {
+    // Se filtran los deals por título y por si se quiere mostrar solo los que tienen 85% de descuento
     const filtered = deals.filter((deal) => {
       const lowerCaseTitle = deal.title.toLowerCase();
       const lowerCaseSearchQuery = searchQuery.toLowerCase();
@@ -34,6 +35,7 @@ export const useDeals = () => {
       );
     });
 
+    // Se ordenan los deals según el orden seleccionado (ascendente o descendente)
     let sortedDeals = filtered;
     if (sortOrder === "ascendant") {
       sortedDeals = filtered
@@ -45,6 +47,7 @@ export const useDeals = () => {
         .sort((a, b) => parseFloat(b.salePrice) - parseFloat(a.salePrice));
     }
 
+    // Se actualiza el estado de los deals filtrados y si hay más deals para mostrar
     setFilteredDeals(sortedDeals.slice(0, displayCount));
     setHasMoreDeals(displayCount < sortedDeals.length);
   }, [deals, searchQuery, show85PercentOff, sortOrder, displayCount]);
