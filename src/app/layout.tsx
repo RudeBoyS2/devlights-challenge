@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
+import { CartProvider } from "./components/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,14 +20,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-        <body className={inter.className}>
-      <Providers>
-        <Navbar />
-        <Banner />
-          {children}
-          <Footer />
-      </Providers>
-        </body>
+      <body className={inter.className}>
+        <Providers>
+          <CartProvider>
+            <Navbar />
+            <Banner />
+            {children}
+            <Footer />
+          </CartProvider>
+        </Providers>
+      </body>
     </html>
   );
 }

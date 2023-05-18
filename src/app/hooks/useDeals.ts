@@ -88,6 +88,7 @@ export const useDeals = () => {
     setDisplayCount((prevCount) => prevCount + 15);
   };
 
+
   return {
     filteredDeals,
     handleSearch,

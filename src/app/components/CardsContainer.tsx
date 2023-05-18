@@ -66,7 +66,7 @@ const CardsContainer = () => {
                 _active={{ bg: "secondary", color: "font" }}
                 onClick={handleLoadMore}
               >
-                Mostrar más
+                Show more
               </Button>
             </Flex>
           )}

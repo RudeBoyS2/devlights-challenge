@@ -56,21 +56,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
         checked={show85PercentOff}
         onChange={handleToggle85PercentOff}
       >
-        +85% de descuento
+        +85% off
       </Checkbox>
       <Checkbox
         colorScheme="orange"
         isChecked={sortOrder === "ascendant"}
         onChange={handleSortByPriceAsc}
       >
-        Más baratos
+        Cheaper
       </Checkbox>
       <Checkbox
         colorScheme="orange"
         isChecked={sortOrder === "descendant"}
         onChange={handleSortByPriceDesc}
       >
-        Más caros
+        Expensive
       </Checkbox>
     </Flex>
   );
