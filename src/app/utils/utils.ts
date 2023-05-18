@@ -86,3 +86,30 @@ export function applyFilters(deals: Deal[], filters: Filter[]): Deal[] {
   // Se devuelve el array de deals filtrados
   return filteredDeals;
 }
+
+// Calculate the discount percentage for a deal
+export const calculateDiscountPercentage = (deal: Deal) => {
+  const salePrice = parseFloat(deal.salePrice);
+  const normalPrice = parseFloat(deal.normalPrice);
+  if (salePrice && normalPrice && normalPrice > 0) {
+    const discountPercentage =
+      ((normalPrice - salePrice) / normalPrice) * 100;
+    return Math.round(discountPercentage);
+  }
+  return 0;
+};
+
+export const calculateStarRating = (deal: Deal) => {
+  const steamRatingPercent = parseFloat(deal.steamRatingPercent);
+  if (steamRatingPercent >= 90) {
+    return 5;
+  } else if (steamRatingPercent >= 80) {
+    return 4;
+  } else if (steamRatingPercent >= 70) {
+    return 3;
+  } else if (steamRatingPercent >= 60) {
+    return 2;
+  } else {
+    return 1;
+  }
+}
