@@ -11,6 +11,9 @@ export const useDeals = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [show85PercentOff, setShow85PercentOff] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
+  const [displayCount, setDisplayCount] = useState(15);
+  const [hasMoreDeals, setHasMoreDeals] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // EFFECTS
   useEffect(() => {
@@ -42,8 +45,9 @@ export const useDeals = () => {
         .sort((a, b) => parseFloat(b.salePrice) - parseFloat(a.salePrice));
     }
 
-    setFilteredDeals(sortedDeals);
-  }, [deals, searchQuery, show85PercentOff, sortOrder]);
+    setFilteredDeals(sortedDeals.slice(0, displayCount));
+    setHasMoreDeals(displayCount < sortedDeals.length);
+  }, [deals, searchQuery, show85PercentOff, sortOrder, displayCount]);
 
   // HELPERS
   const handleSearch = debounce((query: string) => {
@@ -52,12 +56,15 @@ export const useDeals = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(`/api/deals?${searchQuery}`);
       const data = await response.json();
 
       setDeals(data);
     } catch (error) {
       console.log("Error fetching deals:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,6 +84,10 @@ export const useDeals = () => {
     );
   };
 
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => prevCount + 15);
+  };
+
   return {
     filteredDeals,
     handleSearch,
@@ -84,6 +95,9 @@ export const useDeals = () => {
     handleToggle85PercentOff,
     handleSortByPriceAsc,
     handleSortByPriceDesc,
+    handleLoadMore,
     sortOrder,
+    isLoading,
+    hasMoreDeals
   };
 };

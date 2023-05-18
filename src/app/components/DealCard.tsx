@@ -66,7 +66,12 @@ const DealCard: React.FC<DealCardProps> = ({ deal }) => {
           ))}
         </Flex>
       </Flex>
-      <Button bg="secondary" _hover={{ bg: "secondary" }}>
+      <Button cursor="pointer"
+              variant="outline"
+              color="secondary"
+              borderColor="secondary"
+              _hover={{ bg: "secondary", color: "font" }}
+              _active={{ bg: "secondary", color: "font" }}>
         {deal.salePrice && (
           <>
             <Text textDecoration="line-through" fontSize="12px">
