@@ -8,12 +8,15 @@ import {
 } from "../utils/utils";
 import type { Deal } from "../types/types";
 import StarIcon from "./StarIcon";
+import { useContext } from "react";
+import { CartContext } from "./context/CartContext";
 
 interface DealCardProps {
   deal: Deal;
 }
 
 const DealCard: React.FC<DealCardProps> = ({ deal }) => {
+  const { addToCart } = useContext(CartContext);
   const starRating = calculateStarRating(deal);
 
   return (
@@ -39,13 +42,13 @@ const DealCard: React.FC<DealCardProps> = ({ deal }) => {
           position="absolute"
           bg="secondary"
           color="font"
-          p="2"          
+          p="2"
           top="1"
           right="1"
           zIndex={100}
           fontSize="12px"
         >
-          %{calculateDiscountPercentage(deal)}
+          {calculateDiscountPercentage(deal)}%
         </Box>
         <ChakraNextImage
           src={deal.thumb || "/images/navbarlogo.png"}
@@ -66,7 +69,15 @@ const DealCard: React.FC<DealCardProps> = ({ deal }) => {
           ))}
         </Flex>
       </Flex>
-      <Button bg="secondary" _hover={{ bg: "secondary" }}>
+      <Button
+        onClick={() => addToCart(deal)}
+        cursor="pointer"
+        variant="outline"
+        color="secondary"
+        borderColor="secondary"
+        _hover={{ bg: "secondary", color: "font" }}
+        _active={{ bg: "secondary", color: "font" }}
+      >
         {deal.salePrice && (
           <>
             <Text textDecoration="line-through" fontSize="12px">
